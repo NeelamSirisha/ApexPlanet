@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programming Languages History</title>
+  <link rel="stylesheet" href="task1.css" />
+</head>
+<body>
+  <h1 class="main-heading">Click on a Language to Learn Its History</h1>
+
+  <div class="container">
+    <div class="card">
+      <img src="py.png" alt="Python" />
+      <p>Python</p>
+      <button onclick="showHistory('python')">Click here</button>
+    </div>
+    <div class="card">
+      <img src="js.png" alt="JavaScript" />
+      <p>JavaScript</p>
+      <button onclick="showHistory('javascript')">Click here</button>
+    </div>
+    <div class="card">
+      <img src="java.png" alt="Java" />
+      <p>Java</p>
+      <button onclick="showHistory('java')">Click here</button>
+    </div>
+    <div class="card">
+      <img src="c++.png" alt="C++" />
+      <p>C++</p>
+      <button onclick="showHistory('cpp')">Click here</button>
+    </div>
+    <div class="card">
+      <img src="html.png" alt="HTML" />
+      <p>HTML</p>
+      <button onclick="showHistory('html')">Click here</button>
+    </div>
+  </div>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modal-title"></h2>
+      <img id="modal-img" src="" alt="Language Logo" />
+      <p id="modal-body"></p>
+    </div>
+  </div>
+
+  <script src="task1.js"></script>
+</body>
+</html>
