@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz App</title>
+  <style>
+    
+    
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .panel {
+      flex: 0 0 25%;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      background: #fefefe;
+      overflow-y: auto;
+    }
+
+    .center-panel {
+      flex: 0 0 36%;
+      padding: 50px;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .carousel {
+      width: 100%;
+      height: 500px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .carousel img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      position: absolute;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .carousel img.active {
+      opacity: 1;
+      position: relative;
+    }
+
+    .topic {
+      background: #7a7a7a;
+      color: white;
+      border-radius: 10px;
+      padding: 18px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 6px 20px rgba(104, 164, 220, 0.15);
+    }
+
+    .topic:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .topic img {
+      width: 100px;
+      height: 100px;
+      border-radius: 70%;
+      margin-bottom: 10px;
+      object-fit: cover;
+      border: 3px solid white;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+
+    .quiz {
+      background-color: white;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 600px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      overflow-y: auto;
+      max-height: 80vh;
+      position: relative;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 28px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .question {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .options-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .option {
+      background-color: #f4f4f4;
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .option:hover {
+      background-color: #e0e0e0;
+    }
+
+    .correct {
+      background-color: #c8f7c5 !important;
+    }
+
+    .wrong {
+      background-color: #f7c5c5 !important;
+    }
+
+    .next-button {
+      margin-top: 20px;
+      background-color: #c4f514;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .completed {
+      text-align: center;
+      font-size: 22px;
+      font-weight: 700;
+      margin-top: 20px;
+    }
+
+    .score {
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Left Topics -->
+  <div class="panel">
+    <div class="topic" onclick="startQuiz('animals')"><img src="animals.jpg" alt="Animals" />Animals</div>
+    <div class="topic" onclick="startQuiz('computers')"><img src="comp.jpg" alt="Computers" />Computers</div>
+    <div class="topic" onclick="startQuiz('arts')"><img src="arts.jpg" alt="Arts" />Arts</div>
+    <div class="topic" onclick="startQuiz('history')"><img src="history.jpg" alt="History" />History</div>
+  </div>
+
+  <!-- Center Carousel -->
+  <div class="center-panel">
+    <div class="carousel" id="carousel">
+      <img src="animals.jpg" class="active" />
+      <img src="comp.jpg" />
+      <img src="arts.jpg" />
+      <img src="history.jpg" />
+      <img src="nature.jpeg" />
+      <img src="space.jpg" />
+      <img src="maths.jpg" />
+      <img src="science.jpg" />
+    </div>
+  </div>
+
+  <!-- Right Topics -->
+  <div class="panel">
+    <div class="topic" onclick="startQuiz('nature')"><img src="nature.jpeg" alt="Nature" />Nature</div>
+    <div class="topic" onclick="startQuiz('space')"><img src="space.jpg" alt="Space" />Space</div>
+    <div class="topic" onclick="startQuiz('maths')"><img src="maths.jpg" alt="Maths" />Maths</div>
+    <div class="topic" onclick="startQuiz('science')"><img src="science.jpg" alt="Science" />Science</div>
+  </div>
+
+  <!-- Quiz Modal -->
+  <div class="overlay" id="overlay">
+    <div class="quiz" id="quiz">
+      <button class="close-button" onclick="closeQuiz()">×</button>
+    </div>
+  </div>
+
+  <script>
+    const quizzes = {
+      animals: [
+        { question: "Which animal is known as the King of the Jungle?", options: ["Tiger", "Lion", "Elephant", "Bear"], correct: "Lion" },
+        { question: "What do pandas primarily eat?", options: ["Meat", "Bamboo", "Fruits", "Grass"], correct: "Bamboo" },
+        { question: "Which animal is the largest mammal?", options: ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"], correct: "Blue Whale" }
+      ],
+      computers: [
+        { question: "What does CPU stand for?", options: ["Central Process Unit", "Central Processing Unit", "Computer Processing Unit", "Central Processor Unit"], correct: "Central Processing Unit" },
+        { question: "Which of the following is an output device?", options: ["Monitor", "Mouse", "Keyboard", "Scanner"], correct: "Monitor" },
+        { question: "Which company developed the Windows OS?", options: ["Apple", "IBM", "Microsoft", "Google"], correct: "Microsoft" }
+      ],
+      arts: [
+        { question: "Who painted the Mona Lisa?", options: ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Michelangelo"], correct: "Leonardo da Vinci" },
+        { question: "What type of art is characterized by geometric shapes and bright colors?", options: ["Cubism", "Impressionism", "Realism", "Surrealism"], correct: "Cubism" },
+        { question: "Which instrument has 88 keys?", options: ["Violin", "Piano", "Guitar", "Flute"], correct: "Piano" }
+      ],
+      history: [
+        { question: "Who was the first President of the United States?", options: ["Abraham Lincoln", "Thomas Jefferson", "George Washington", "John Adams"], correct: "George Washington" },
+        { question: "The Great Wall of China was built to protect against which group?", options: ["Romans", "Huns", "Mongols", "Vikings"], correct: "Mongols" },
+        { question: "In which year did World War II end?", options: ["1945", "1939", "1918", "1950"], correct: "1945" }
+      ],
+      nature: [
+        { question: "What is the tallest type of grass?", options: ["Bamboo", "Wheat", "Rice", "Sugarcane"], correct: "Bamboo" },
+        { question: "Which gas do trees absorb from the air?", options: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"], correct: "Carbon Dioxide" },
+        { question: "What natural resource covers most of the Earth’s surface?", options: ["Forests", "Mountains", "Water", "Desert"], correct: "Water" }
+      ],
+      space: [
+        { question: "Which planet is known as the Red Planet?", options: ["Mars", "Jupiter", "Venus", "Saturn"], correct: "Mars" },
+        { question: "What is the hottest planet in our solar system?", options: ["Mercury", "Venus", "Mars", "Jupiter"], correct: "Venus" },
+        { question: "Which celestial body orbits the Earth?", options: ["Mars", "The Moon", "Sun", "Saturn"], correct: "The Moon" }
+      ],
+      maths: [
+        { question: "What is 12 × 12?", options: ["124", "132", "144", "156"], correct: "144" },
+        { question: "What is the value of pi (approximately)?", options: ["2.14", "3.14", "4.13", "3.41"], correct: "3.14" },
+        { question: "What is the square root of 64?", options: ["6", "7", "8", "9"], correct: "8" }
+      ],
+      science: [
+        { question: "What is H2O commonly known as?", options: ["Hydrogen", "Oxygen", "Water", "Helium"], correct: "Water" },
+        { question: "What force keeps us on the ground?", options: ["Friction", "Magnetism", "Gravity", "Inertia"], correct: "Gravity" },
+        { question: "What planet do we live on?", options: ["Mars", "Venus", "Earth", "Jupiter"], correct: "Earth" }
+      ]
+    };
+
+    const overlay = document.getElementById('overlay');
+    const quizBox = document.getElementById('quiz');
+
+    let currentQuiz = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function startQuiz(topic) {
+      currentQuiz = quizzes[topic];
+      currentQuestionIndex = 0;
+      score = 0;
+      overlay.style.display = 'flex';
+      showQuestion();
+    }
+
+    function closeQuiz() {
+      overlay.style.display = 'none';
+      quizBox.innerHTML = `<button class="close-button" onclick="closeQuiz()">×</button>`;
+    }
+
+    function showQuestion() {
+      const q = currentQuiz[currentQuestionIndex];
+      quizBox.innerHTML = `
+        <button class="close-button" onclick="closeQuiz()">×</button>
+        <div class="question">${q.question}</div>
+        <div class="options-container">
+          ${q.options.map((opt) =>
+            `<div class="option" onclick="selectOption(this, '${opt}', '${q.correct}')">${opt}</div>`).join('')}
+        </div>
+      `;
+    }
+
+    function selectOption(elem, selected, correct) {
+      const options = quizBox.querySelectorAll('.option');
+      options.forEach(opt => opt.style.pointerEvents = 'none');
+
+      if (selected === correct) {
+        elem.classList.add('correct');
+        score++;
+      } else {
+        elem.classList.add('wrong');
+        options.forEach(opt => {
+          if (opt.textContent === correct) opt.classList.add('correct');
+        });
+      }
+
+      if (currentQuestionIndex < currentQuiz.length - 1) {
+        quizBox.innerHTML += `<button class="next-button" onclick="nextQuestion()">Next</button>`;
+      } else {
+        quizBox.innerHTML += `
+          <div class="completed">Quiz Completed!</div>
+          <div class="score">Your Score: ${score}/${currentQuiz.length}</div>
+          <button class="next-button" onclick="closeQuiz()">Close</button>
+        `;
+      }
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+      showQuestion();
+    }
+
+    const carouselImages = document.querySelectorAll('.carousel img');
+    let carouselIndex = 0;
+
+    function showCarouselImage(index) {
+      carouselImages.forEach((img, i) => {
+        img.classList.toggle('active', i === index);
+      });
+    }
+
+    setInterval(() => {
+      carouselIndex = (carouselIndex + 1) % carouselImages.length;
+      showCarouselImage(carouselIndex);
+    }, 3500);
+  </script>
+</body>
+</html>
