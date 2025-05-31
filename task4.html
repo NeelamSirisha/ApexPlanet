@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shopping - My Portfoli</title>
+  <link rel="stylesheet" href="task4.css" />
+</head>
+<body>
+
+  <!-- Header / Navbar -->
+  <header>
+    <div class="logo">Task - 4 :)</div>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <nav>
+      <ul id="nav-menu">
+        <li><a href="portfolio.html">Personal</a></li>
+        <li><a href="#shop">Shop</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Shopping Banner -->
+  <section class="shopping-banner">
+    <img src="shopping.jpg" alt="Shopping Banner">
+  </section>
+
+  <!-- Filters -->
+  <section class="filters">
+    <input type="text" id="search" placeholder="Search products..." oninput="filterProducts()">
+    <select id="category" onchange="filterProducts()">
+      <option value="">All Categories</option>
+      <option value="Electronics">Electronics</option>
+      <option value="Makeup">Makeup</option>
+      <option value="Dresses">Dresses</option>
+      <option value="Books">Books</option>
+      <option value="Grocery">Grocery</option>
+    </select>
+    <select id="rating" onchange="filterProducts()">
+      <option value="">All Ratings</option>
+      <option value="4">4 & up</option>
+      <option value="3">3 & up</option>
+    </select>
+    <select id="price" onchange="filterProducts()">
+      <option value="">Sort by Price</option>
+      <option value="asc">Low to High</option>
+      <option value="desc">High to Low</option>
+    </select>
+  </section>
+
+  <!-- Products Grid -->
+  <section class="products" id="product-list">
+    <!-- Sample products -->
+    <div class="product" data-name="Smartphone" data-category="Electronics" data-rating="4.5" data-price="30000">
+      <img src="phone.jpg" alt="Smartphone">
+      <h3>Smartphone</h3>
+      <p>₹30000</p>
+      <p>⭐ 4.7</p>
+      <button onclick="addToCart('Smartphone')">Add to Cart</button>
+
+    </div>
+    <div class="product" data-name="Smartphone" data-category="Books" data-rating="4.5" data-price="500">
+      <img src="ruskinbond.jpg" alt="Smartphone">
+      <h3>Ruskin Bond</h3>
+      <p>₹500</p>
+      <p>⭐ 4.5</p>
+      <button onclick="addToCart('Ruskin Bond')">Add to Cart</button>
+
+    </div>
+    <div class="product" data-name="Lipstick" data-category="Makeup" data-rating="4.6" data-price="399">
+      <img src="makeup1.jpg" alt="Lipstick">
+      <h3>Lipstick</h3>
+      <p>₹399</p>
+      <p>⭐ 4.6</p>
+      <button onclick="addToCart('Lipstick')">Add to Cart</button>
+
+    </div>
+    <div class="product" data-name="Saree" data-category="Dresses" data-rating="4.2" data-price="999">
+      <img src="saree.jpg" alt="Saree">
+      <h3>Silk Saree</h3>
+      <p>₹999</p>
+      <p>⭐ 4.2</p>
+      <button onclick="addToCart('Saree')">Add to Cart</button>
+
+    </div>
+    <div class="product" data-name="Smartphone" data-category="Makeup" data-rating="4.0" data-price="450">
+      <img src="makeup3.jpg" alt="Mascara">
+      <h3>Mascara</h3>
+      <p>₹450</p>
+      <p>⭐ 4.0</p>
+      <button onclick="addToCart('Mascara')">Add to Cart</button>
+
+    </div>
+    
+    <div class="product" data-name="Smartphone" data-category="Electronics" data-rating="4.4" data-price="20000">
+      <img src="vrheadset.jpg" alt="Smartphone">
+      <h3>VR Headset</h3>
+      <p>₹20000</p>
+      <p>⭐ 4.4</p>
+      <button onclick="addToCart('VR Headset')">Add to Cart</button>
+
+    </div>
+
+    <div class="product" data-name="Smartphone" data-category="Books" data-rating="4.5" data-price="590">
+      <img src="itendswithus.jpg" alt="Smartphone">
+      <h3>It Ends With Us</h3>
+      <p>₹590</p>
+      <p>⭐ 4.5</p>
+      <button onclick="addToCart('Smartphone')">It Ends With Us</button>
+
+    </div>
+    <div class="product" data-name="Smartphone" data-category="Electronics" data-rating="4.7" data-price="5999">
+      <img src="watch.jpg" alt="Smartphone">
+      <h3>Premium Watch</h3>
+      <p>₹5999</p>
+      <p>⭐ 4.7</p>
+      <button onclick="addToCart('premium Watch')">Add to Cart</button>
+
+    </div>
+    
+    <div class="product" data-name="Smartphone" data-category="Grocery" data-rating="4.0" data-price="300">
+      <img src="rice.jpg" alt="Smartphone">
+      <h3>Rice</h3>
+      <p>₹300</p>
+      <p>⭐ 4.0</p>
+      <button onclick="addToCart('Rice')">Add to Cart</button>
+
+    </div>
+    <div class="product" data-name="Saree" data-category="Dresses" data-rating="4.2" data-price="999">
+      <img src="dress.jpg" alt="Saree">
+      <h3>Frock</h3>
+      <p>₹999</p>
+      <p>⭐ 4.2</p>
+      <button onclick="addToCart('Frock')">Add to Cart</button>
+
+    </div>
+    <div class="product" data-name="Smartphone" data-category="Grocery" data-rating="4.5" data-price="250">
+      <img src="oil.jpeg" alt="Smartphone">
+      <h3>Sunflower Oil</h3>
+      <p>₹250</p>
+      <p>⭐ 4.5</p>
+      <button onclick="addToCart('Sunflower Oil')">Add to Cart</button>
+
+    </div>
+    
+    <div class="product" data-name="Smartphone" data-category="Makeup" data-rating="4.5" data-price="450">
+      <img src="makeup7.jpg" alt="Smartphone">
+      <h3>Pink Shade Lip Gloss</h3>
+      <p>₹450</p>
+      <p>⭐ 4.5</p>
+      <button onclick="addToCart('Pink Shade Lip Gloss')">Add to Cart</button>
+    </div>
+    
+    <div class="product" data-name="Smartphone" data-category="Grocery" data-rating="4.2" data-price="100">
+      <img src="fruits.jpg" alt="Smartphone">
+      <h3>Pomogranate</h3>
+      <p>₹100</p>
+      <p>⭐ 4.2</p>
+      <button onclick="addToCart('Pomogranate')">Add to Cart</button>
+
+    </div>
+    
+    <div class="product" data-name="Smartphone" data-category="Electronics" data-rating="4.5" data-price="2500">
+      <img src="earbuds.jpg" alt="Smartphone">
+      <h3>Ear Buds</h3>
+      <p>₹2500</p>
+      <p>⭐ 4.5</p>
+      <button onclick="addToCart('Ear Buds')">Add to Cart</button>
+
+    </div>
+    
+    <div class="product" data-name="Smartphone" data-category="Grocery" data-rating="4.0" data-price="59">
+      <img src="avacado.jpg" alt="Smartphone">
+      <h3>Avacado</h3>
+      <p>₹59</p>
+      <p>⭐ 4.0</p>
+      <button onclick="addToCart('Avacado')">Add to Cart</button>
+
+    </div>
+    
+    <div class="product" data-name="Smartphone" data-category="Grocery" data-rating="4.2" data-price="45">
+      <img src="fruit1.jpg" alt="Smartphone">
+      <h3>KiWi Fruit</h3>
+      <p>₹45</p>
+      <p>⭐ 4.2</p>
+      <button onclick="addToCart('Kiwi Fruit')">Add to Cart</button>
+
+    </div>
+    
+    <div class="product" data-name="Smartphone" data-category="Electronics" data-rating="4.5" data-price="5000">
+      <img src="headphnes.jpg" alt="Smartphone">
+      <h3>Headphones</h3>
+      <p>₹5000</p>
+      <p>⭐ 4.5</p>
+      <button onclick="addToCart('Head Phones')">Add to Cart</button>
+
+    </div>
+    
+    <div class="product" data-name="Smartphone" data-category="Makeup" data-rating="4.5" data-price="450">
+      <img src="makeup2.jpg" alt="Smartphone">
+      <h3>ELF</h3>
+      <p>₹450</p>
+      <p>⭐ 4.5</p>
+      <button onclick="addToCart('ELF')">Add to Cart</button>
+
+    </div>
+    
+    <div class="product" data-name="Smartphone" data-category="Makeup" data-rating="4.2" data-price="550">
+      <img src="makeup5.jpg" alt="Smartphone">
+      <h3>Mac face Colour</h3>
+      <p>₹450</p>
+      <p>⭐ 4.2</p>
+      <button onclick="addToCart('Mac Face Colour')">Add to Cart</button>
+   </div>
+    
+    <div class="product" data-name="Smartphone" data-category="Makeup" data-rating="4.0" data-price="200">
+      <img src="makeup6.jpg" alt="Smartphone">
+      <h3>Makeup Set</h3>
+      <p>₹200</p>
+      <p>⭐ 4.0</p>
+      <button onclick="addToCart('Makeup Set')">Add to Cart</button>
+
+    </div>
+    
+    <div class="product" data-name="Smartphone" data-category="Books" data-rating="4.9" data-price="799">
+      <img src="rituals of a happy soul.jpg" alt="Smartphone">
+      <h3>Rituals of a Happy Soul</h3>
+      <p>₹799</p>
+      <p>⭐ 4.9</p>
+      <button onclick="addToCart('Rituals of a Happy Soul')">Add to Cart</button>
+
+    </div>
+    <div class="product" data-name="Book" data-category="Books" data-rating="3.8" data-price="299">
+      <img src="book.jpg" alt="Book">
+      <h3>Only the Brave</h3>
+      <p>₹299</p>
+      <p>⭐ 3.8</p>
+      <button onclick="addToCart('Only the Brave')">Add to Cart</button>
+
+    </div>
+    <!-- Add more products similarly -->
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Sirisha. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    function toggleMenu() {
+      document.getElementById("nav-menu").classList.toggle("show");
+    }
+
+    function filterProducts() {
+  const search = document.getElementById("search").value.toLowerCase();
+  const category = document.getElementById("category").value;
+  const rating = parseFloat(document.getElementById("rating").value) || 0;
+  const priceSort = document.getElementById("price").value;
+
+  let products = Array.from(document.querySelectorAll(".product"));
+
+  // Filter logic
+  products.forEach(product => {
+    const name = product.dataset.name.toLowerCase();
+    const prodCategory = product.dataset.category;
+    const prodRating = parseFloat(product.dataset.rating);
+    const prodPrice = parseFloat(product.dataset.price);
+
+    const matchesSearch = !search || name.includes(search);
+    const matchesCategory = !category || prodCategory === category;
+    const matchesRating = !rating || prodRating >= rating;
+
+    const isVisible = matchesSearch && matchesCategory && matchesRating;
+    product.style.display = isVisible ? "block" : "none";
+  });
+
+  // Apply price sort on visible products
+  if (priceSort) {
+    const visibleProducts = products.filter(p => p.style.display !== "none");
+    visibleProducts.sort((a, b) => {
+      const priceA = parseFloat(a.dataset.price);
+      const priceB = parseFloat(b.dataset.price);
+      return priceSort === "asc" ? priceA - priceB : priceB - priceA;
+    });
+
+    const container = document.getElementById("product-list");
+    visibleProducts.forEach(p => container.appendChild(p));
+  }
+}
+
+
+    function addToCart(productName) {
+  alert(`${productName} added to cart!`);
+}
+
+document.querySelectorAll('.product button').forEach(button => {
+  const productName = button.parentElement.querySelector('h3').textContent;
+  button.onclick = () => addToCart(productName);
+});
+
+
+  </script>
+
+</body>
+</html>
