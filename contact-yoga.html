@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact - Yoga Harmony</title>
+  <link rel="stylesheet" href="contact-yoga.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">Yoga Harmony</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="yoga.html">Home</a></li>
+        <li><a href="yoga-poses.html">Yoga Poses</a></li>
+        <li><a href="health-benifits.html">Health & Benefits</a></li>
+        <li><a href="contact-yoga.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Contact Form Only -->
+  <section class="contact-only">
+    <div class="contact-section">
+      <h2>Contact Us</h2>
+      <p>We’re here to help! Fill out the form below and we’ll get back to you soon.</p>
+
+      <form id="contactForm">
+        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="email" id="email" placeholder="Email Address" required>
+        <input type="tel" id="phone" placeholder="Phone Number">
+
+        <!-- Gender -->
+        <div class="radio-group">
+          <label><input type="radio" name="gender" value="Male" required> Male</label>
+          <label><input type="radio" name="gender" value="Female"> Female</label>
+          <label><input type="radio" name="gender" value="Other"> Other</label>
+        </div>
+
+        <input type="text" id="subject" placeholder="Subject" required>
+
+        <!-- Topic -->
+        <select id="topic" required>
+          <option value="">-- Select Topic --</option>
+          <option value="yogaClasses">Yoga Classes</option>
+          <option value="posesInfo">Yoga Poses Info</option>
+          <option value="healthAdvice">Health & Diet Advice</option>
+        </select>
+
+        <!-- Time Preference -->
+        <select id="contactTime" required>
+          <option value="">-- Preferred Contact Time --</option>
+          <option value="Morning">Morning</option>
+          <option value="Afternoon">Afternoon</option>
+          <option value="Evening">Evening</option>
+        </select>
+
+        <!-- Message -->
+        <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+
+        <!-- Terms -->
+        <label class="terms">
+          <input type="checkbox" id="terms" required>
+          I agree to the Terms & Conditions
+        </label>
+
+        <!-- Buttons -->
+        <div class="form-buttons">
+          <button type="submit">Send Message</button>
+          <button type="reset">Clear</button>
+        </div>
+      </form>
+
+      <div id="successMsg" class="success-message"></div>
+    </div>
+  </section>
+
+  <script src="contact-yoga.js"></script>
+</body>
+</html>

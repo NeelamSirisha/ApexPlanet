@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Yoga Asanas by Category</title>
+  <link rel="stylesheet" href="yoga-poses.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">Yoga Harmony</div>
+    <nav>
+      <a href="yoga.html">Home</a></li>
+      <a href="yoga-poses.html">Yoga Poses</a>
+      <a href="health-benifits.html">Health & Benefits</a>
+      <a href="contact-yoga.html">Contact</a>
+    </nav>
+  </header>
+  <h1 class="heading">Yoga Asanas by Category</h1>
+
+  <!-- Filter Buttons -->
+  <div class="filters">
+    <button onclick="filterAsanas('all')">All</button>
+    <button onclick="filterAsanas('standing')">Standing</button>
+    <button onclick="filterAsanas('seated')">Seated</button>
+    <button onclick="filterAsanas('backbend')">Backbends</button>
+    <button onclick="filterAsanas('forward')">Forward Bends</button>
+    <button onclick="filterAsanas('inversion')">Inversions</button>
+  </div>
+
+  <!-- Asana Grid -->
+  <div class="asana-container">
+    <!-- Standing Poses -->
+    <div class="asana-card standing" onclick="showDetails('Tadasana', 'Mountain pose improves posture and stability.')">
+      <img src="tadasana.jpg" alt="Tadasana">
+      <h3>Tadasana</h3>
+    </div>
+    <div class="asana-card standing" onclick="showDetails('Vrikshasana', 'Tree pose improves balance and posture.')">
+      <img src="vrikshasana.jpg" alt="Vrikshasana">
+      <h3>Vrikshasana</h3>
+    </div>
+    <div class="asana-card standing" onclick="showDetails('Trikonasana', 'Triangle pose stretches the spine and strengthens the core.')">
+      <img src="trikonasana.jpg" alt="Trikonasana">
+      <h3>Trikonasana</h3>
+    </div>
+    <div class="asana-card standing" onclick="showDetails('Ardha Chandrasana', 'Half Moon Pose improves balance and strengthens the legs.')">
+        <img src="ardha-chandrasana.jpg" alt="Ardha Chandrasana">
+        <h3>Ardha Chandrasana</h3>
+    </div>
+    <div class="asana-card standing" onclick="showDetails('Parsvakonasana', 'Extended Side Angle Pose stretches the side body.')">
+         <img src="parsvakonasana.jpg" alt="Parsvakonasana">
+         <h3>Parsvakonasana</h3>
+    </div>
+    <div class="asana-card standing" onclick="showDetails('Garudasana', 'Eagle Pose improves focus and balance.')">
+        <img src="garudasana.jpg" alt="Garudasana">
+        <h3>Garudasana</h3>
+    </div>
+    <div class="asana-card standing" onclick="showDetails('Utthita Hasta Padangusthasana', 'Improves leg strength and balance.')">
+        <img src="utthita hasta pasangusthasana.jpg" alt="Utthita Hasta Padangusthasana">
+        <h3>Utthita Hasta Padangusthasana</h3>
+    </div>
+    <div class="asana-card standing" onclick="showDetails('Virabhadrasana II', 'Warrior II Pose builds stamina and strength.')">
+        <img src="virabhadrasana.jpg" alt="Virabhadrasana II">
+        <h3>Virabhadrasana II</h3>
+    </div>
+
+    <!-- Seated Poses -->
+    <div class="asana-card seated" onclick="showDetails('Padmasana', 'Lotus pose improves digestion and calms the mind.')">
+      <img src="padmasana.jpg" alt="Padmasana">
+      <h3>Padmasana</h3>
+    </div>
+    <div class="asana-card seated" onclick="showDetails('Paschimottanasana', 'Forward bend calms the brain and stretches the spine.')">
+      <img src="paschimottanasana.jpg" alt="Paschimottanasana">
+      <h3>Paschimottanasana</h3>
+    </div>
+    <div class="asana-card seated" onclick="showDetails('Ustrasana', 'Camel pose stretches the front of the body and improves posture.')">
+      <img src="ustrasana.jpg" alt="Ustrasana">
+      <h3>Ustrasana</h3>
+    </div>
+    <div class="asana-card seated" onclick="showDetails('Sukhasana', 'Easy Pose promotes calmness and clarity.')">
+         <img src="sukhasana.jpg" alt="Sukhasana">
+        <h3>Sukhasana</h3>
+    </div>
+    <div class="asana-card seated" onclick="showDetails('Gomukhasana', 'Cow Face Pose stretches hips and shoulders.')">
+        <img src="gomukhasana.jpg" alt="Gomukhasana">
+        <h3>Gomukhasana</h3>
+    </div>
+    <div class="asana-card seated" onclick="showDetails('Baddha Konasana', 'Bound Angle Pose opens hips and groin.')">
+        <img src="baddha-konasana.jpg" alt="Baddha Konasana">
+        <h3>Baddha Konasana</h3>
+    </div>
+    <div class="asana-card seated" onclick="showDetails('Ardha Matsyendrasana', 'Twisting pose that improves digestion.')">
+         <img src="ardha.jpg" alt="Ardha Matsyendrasana">
+        <h3>Ardha Matsyendrasana</h3>
+    </div>
+    <div class="asana-card seated" onclick="showDetails('Virasana', 'Hero Pose stretches thighs and knees.')">
+             <img src="virasana.jpg" alt="Virasana">
+         <h3>Virasana</h3>
+    </div>
+
+    <!-- Backbends -->
+    <div class="asana-card backbend" onclick="showDetails('Bhujangasana', 'Cobra pose strengthens the spine and opens the chest.')">
+      <img src="bhujangasana.jpg" alt="Bhujangasana">
+      <h3>Bhujangasana</h3>
+    </div>
+    <div class="asana-card backbend" onclick="showDetails('Dhanurasana', 'Bow pose strengthens the back and legs.')">
+      <img src="dhanurasana.jpg" alt="Dhanurasana">
+      <h3>Dhanurasana</h3>
+    </div>
+    <div class="asana-card backbend" onclick="showDetails('Setu Bandhasana', 'Bridge pose opens the heart and strengthens legs.')">
+      <img src="setuu-bandhasana.jpg" alt="Setu Bandhasana">
+      <h3>Setu Bandhasana</h3>
+    </div>
+    <div class="asana-card backbend" onclick="showDetails('Chakrasana', 'Wheel Pose increases energy and flexibility.')">
+        <img src="chakrasana.jpg" alt="Chakrasana">
+        <h3>Chakrasana</h3>
+    </div>
+    <div class="asana-card backbend" onclick="showDetails('Matsyasana', 'Fish Pose opens chest and throat.')">
+        <img src="matsyasana.jpg" alt="Matsyasana">
+         <h3>Matsyasana</h3>
+    </div>
+    <div class="asana-card backbend" onclick="showDetails('Salabhasana', 'Locust Pose strengthens the spine and legs.')">
+        <img src="salabhasana.jpg" alt="Salabhasana">
+        <h3>Salabhasana</h3>
+    </div>
+    <div class="asana-card backbend" onclick="showDetails('Eka Pada Rajakapotasana', 'Pigeon Pose opens hips and improves flexibility.')">
+         <img src="eka pada rajakapotasana.jpg" alt="Eka Pada Rajakapotasana">
+         <h3>Eka Pada Rajakapotasana</h3>
+    </div>
+    <div class="asana-card backbend" onclick="showDetails('Viparita Dandasana', 'Inverted Staff Pose energizes and strengthens back.')">
+        <img src="viparitha.jpg" alt="Viparita Dandasana">
+         <h3>Viparita Dandasana</h3>
+    </div>
+
+    <!-- Forward Bends -->
+    <div class="asana-card forward" onclick="showDetails('Janu Sirsasana', 'Head-to-knee pose calms the mind and stretches the spine.')">
+      <img src="janu-sirsana.jpg" alt="Janu Sirsasana">
+      <h3>Janu Sirsasana</h3>
+    </div>
+    <div class="asana-card forward" onclick="showDetails('Uttanasana', 'Standing forward bend relieves stress and calms the brain.')">
+      <img src="uttanasana.jpg" alt="Uttanasana">
+      <h3>Uttanasana</h3>
+    </div>
+    <div class="asana-card forward" onclick="showDetails('Balasana', 'Child pose gently stretches the back and hips.')">
+      <img src="balasana.jpg" alt="Balasana">
+      <h3>Balasana</h3>
+    </div>
+    <div class="asana-card forward" onclick="showDetails('Prasarita Padottanasana', 'Wide Forward Bend calms mind and stretches legs.')">
+        <img src="prasarita-pado.jpg" alt="Prasarita Padottanasana">
+        <h3>Prasarita Padottanasana</h3>
+    </div>
+    <div class="asana-card forward" onclick="showDetails('Ardha Uttanasana', 'Half Forward Fold preps body and improves posture.')">
+        <img src="ardha-uttanasana.jpg" alt="Ardha Uttanasana">
+        <h3>Ardha Uttanasana</h3>
+    </div>
+    <div class="asana-card forward" onclick="showDetails('Parsvottanasana', 'Side Stretch Pose strengthens legs and spine.')">
+        <img src="parsvakonasana.jpg" alt="Parsvottanasana">
+        <h3>Parsvottanasana</h3>
+    </div>
+    <div class="asana-card forward" onclick="showDetails('Upavistha Konasana', 'Wide-Angle Pose stretches the spine and legs.')">
+        <img src="upavista-konasana.jpg" alt="Upavistha Konasana">
+        <h3>Upavistha Konasana</h3>
+    </div>
+    <div class="asana-card forward" onclick="showDetails('Trianga Mukhaikapada Paschimottanasana', 'Three-Limbed Pose stretches the hamstrings.')">
+         <img src="trianga.jpg" alt="Trianga Mukhaikapada Paschimottanasana">
+        <h3>Trianga Mukhaikapada Paschimottanasana</h3>
+    </div>
+
+    <!-- Inversions -->
+    <div class="asana-card inversion" onclick="showDetails('Sarvangasana', 'Shoulder stand improves blood circulation.')">
+      <img src="sarvangasana.jpg" alt="Sarvangasana">
+      <h3>Sarvangasana</h3>
+    </div>
+    <div class="asana-card inversion" onclick="showDetails('Halasana', 'Plow pose calms the nervous system and improves flexibility.')">
+      <img src="halsana.jpg" alt="Halasana">
+      <h3>Halasana</h3>
+    </div>
+    <div class="asana-card inversion" onclick="showDetails('Adho Mukha Svanasana', 'Downward dog increases blood flow and flexibility.')">
+      <img src="adho-mukha svanasana.jpg" alt="Adho Mukha Svanasana">
+      <h3>Adho Mukha Svanasana</h3>
+    </div>
+    <div class="asana-card inversion" onclick="showDetails('Sirsasana', 'Headstand improves concentration and balance.')">
+        <img src="sirsasana.jpg" alt="Sirsasana">
+        <h3>Sirsasana</h3>
+    </div>
+    <div class="asana-card inversion" onclick="showDetails('Pincha Mayurasana', 'Forearm Stand strengthens core and arms.')">
+         <img src="pincha.jpg" alt="Pincha Mayurasana">
+         <h3>Pincha Mayurasana</h3>
+    </div>
+    <div class="asana-card inversion" onclick="showDetails('Viparita Karani', 'Legs-up-the-wall pose relaxes body and mind.')">
+        <img src="viparrita-karani.jpg" alt="Viparita Karani">
+         <h3>Viparita Karani</h3>
+    </div>
+    <div class="asana-card inversion" onclick="showDetails('Karnapidasana', 'Ear Pressure Pose relieves stress and tension.')">
+        <img src="karnapidasana.jpg" alt="Karnapidasana">
+         <h3>Karnapidasana</h3>
+    </div>
+    <div class="asana-card inversion" onclick="showDetails('Adho Mukha Vrksasana', 'Handstand builds strength and stability.')">
+         <img src="adho mukha.jpg" alt="Adho Mukha Vrksasana">
+        <h3>Adho Mukha Vrksasana</h3>
+    </div>
+ </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="asanaTitle"></h2>
+      <p id="asanaDescription"></p>
+    </div>
+  </div>
+
+  <script src="yoga-asanas.js"></script>
+</body>
+</html>
