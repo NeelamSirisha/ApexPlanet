@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sudoku Solver – Multi Grid</title>
+  <style>
+    :root {
+      --cell-big: 40px;
+      --primary: #2196f3;
+      --primary-dark: #1976d2;
+      --bg-1: #e3f2fd;
+      --bg-2: #fce4ec;
+      --border: #bbb;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, var(--bg-1), var(--bg-2));
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* 🎯 Ad Strip */
+    .ad-strip {
+      width: 100%;
+      overflow: hidden;
+      background: #fff8e1;
+      border-top: 2px solid #fbc02d;
+      border-bottom: 2px solid #fbc02d;
+      padding: 10px 0;
+      position: relative;
+      z-index: 2;
+    }
+    .ad-track {
+      display: inline-block;
+      white-space: nowrap;
+      animation: scroll-ads 20s linear infinite;
+    }
+    .ad-item {
+      display: inline-block;
+      margin-right: 40px;
+      text-align: center;
+    }
+    .ad-item img {
+      height: 40px;
+      vertical-align: middle;
+      margin-bottom: 5px;
+      transition: transform 0.3s;
+    }
+    .ad-item:hover img {
+      transform: scale(1.1);
+    }
+    .ad-item span {
+      display: block;
+      font-size: 0.9rem;
+      color: #333;
+    }
+    @keyframes scroll-ads {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    header {
+      text-align: center;
+      margin: 20px 10px;
+    }
+    h1 {
+      font-size: 2.6rem;
+      color: #333;
+    }
+    .caption {
+      color: #555;
+      margin-top: 8px;
+      font-size: 1.15rem;
+    }
+
+    .types-table {
+      width: 95%;
+      max-width: 780px;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, .1);
+    }
+    .types-table th, .types-table td {
+      border: 1px solid #ccc;
+      padding: 12px 18px;
+      text-align: center;
+    }
+    .types-table th {
+      background: var(--primary);
+      color: #fff;
+    }
+    .types-table td {
+      background: #fafafa;
+    }
+
+    .control-bar {
+      margin: 25px 0;
+      text-align: center;
+    }
+    select {
+      padding: 10px 16px;
+      font-size: 1rem;
+      border: 1px solid #888;
+      border-radius: 8px;
+    }
+
+    .sudoku-grid {
+      display: grid;
+      gap: 2px;
+      margin: 20px auto;
+      user-select: none;
+    }
+    .cell {
+      background: #fff;
+      border: 1px solid var(--border);
+      text-align: center;
+      font-size: 1rem;
+      transition: background .25s ease;
+      outline: none;
+      width: var(--cell-big);
+      height: var(--cell-big);
+      text-transform: uppercase;
+    }
+    .cell:focus {
+      outline: 2px solid #00bcd4;
+    }
+    .highlight {
+      background: #c8e6c9 !important;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    button {
+      padding: 11px 22px;
+      font-size: 1rem;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background .25s;
+    }
+    button:hover {
+      background: var(--primary-dark);
+    }
+
+    #resultCaption {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 30px 0;
+      color: #666;
+      font-size: .9rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 🔁 Trending Apps Ad Strip -->
+<div class="ad-strip">
+  <div class="ad-track">
+    <a href="https://www.youtube.com" target="_blank" class="ad-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube">
+      <span>YouTube</span>
+    </a>
+    <a href="https://www.instagram.com" target="_blank" class="ad-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+      <span>Instagram</span>
+    </a>
+    <a href="https://www.whatsapp.com" target="_blank" class="ad-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+      <span>WhatsApp</span>
+    </a>
+    <a href="https://chat.openai.com" target="_blank" class="ad-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="ChatGPT">
+      <span>ChatGPT</span>
+    </a>
+    <a href="https://www.netflix.com" target="_blank" class="ad-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix">
+      <span>Netflix</span>
+    </a>
+    <a href="https://www.spotify.com" target="_blank" class="ad-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="Spotify">
+      <span>Spotify</span>
+    </a>
+    <a href="https://www.amazon.in" target="_blank" class="ad-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon">
+      <span>Amazon</span>
+    </a>
+    <a href="https://www.zeptonow.com/" target="_blank" class="ad-item">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Zepto_Logo.svg" alt="Zepto">
+      <span>Zepto</span>
+    </a>
+   </div>
+</div>
+
+<!-- 🔠 Sudoku Header & Content -->
+<header>
+  <h1>Sudoku Solver</h1>
+  <p class="caption">Dynamic multi‑grid solver – choose size, type numbers, get answers instantly!</p>
+</header>
+
+<table class="types-table">
+  <thead>
+    <tr><th>Type</th><th>Grid Size</th><th>Box Layout</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Mini</td><td>4 × 4</td><td>2 × 2 blocks</td></tr>
+    <tr><td>Mini</td><td>6 × 6</td><td>2 × 3 blocks</td></tr>
+    <tr><td>Classic</td><td>9 × 9</td><td>3 × 3 blocks</td></tr>
+    <tr><td>Giant</td><td>12 × 12</td><td>3 × 4 blocks</td></tr>
+    <tr><td>Giant</td><td>16 × 16</td><td>4 × 4 blocks</td></tr>
+  </tbody>
+</table>
+
+<div class="control-bar">
+  <label for="gridSize"><strong>Select grid size:</strong></label>
+  <select id="gridSize" onchange="createGrid()">
+    <option value="4">4 × 4</option>
+    <option value="6">6 × 6</option>
+    <option value="9" selected>9 × 9</option>
+    <option value="12">12 × 12</option>
+    <option value="16">16 × 16</option>
+  </select>
+</div>
+
+<div id="sudokuGrid" class="sudoku-grid"></div>
+
+<div class="buttons">
+  <button onclick="solveSudoku()">Get Answer</button>
+  <button onclick="clearGrid()">Clear</button>
+</div>
+
+<div id="resultCaption"></div>
+
+<footer>© 2025 Sudoku Solver | Built by Sirisha 💙</footer>
+
+<script>
+  let size = 9;
+  let cells = [];
+
+  function getBoxSize(n) {
+    return {
+      4: [2, 2],
+      6: [2, 3],
+      9: [3, 3],
+      12: [3, 4],
+      16: [4, 4]
+    }[n];
+  }
+
+  function createGrid() {
+    size = parseInt(document.getElementById('gridSize').value);
+    const [boxR, boxC] = getBoxSize(size);
+    const grid = document.getElementById('sudokuGrid');
+    grid.innerHTML = '';
+    grid.style.gridTemplateColumns = `repeat(${size}, var(--cell-big))`;
+    cells = [];
+
+    for (let r = 0; r < size; r++) {
+      const row = [];
+      for (let c = 0; c < size; c++) {
+        const input = document.createElement('input');
+        input.className = 'cell';
+        input.maxLength = 2;
+        input.dataset.row = r;
+        input.dataset.col = c;
+        input.oninput = () => input.value = input.value.toUpperCase().replace(/[^A-F0-9]/g, '');
+
+        let borderStyles = '';
+        if (r % boxR === 0) borderStyles += 'border-top: 2px solid #000;';
+        if (c % boxC === 0) borderStyles += 'border-left: 2px solid #000;';
+        if (r === size - 1) borderStyles += 'border-bottom: 2px solid #000;';
+        if (c === size - 1) borderStyles += 'border-right: 2px solid #000;';
+        input.style.cssText += borderStyles;
+
+        row.push(input);
+        grid.appendChild(input);
+      }
+      cells.push(row);
+    }
+
+    document.getElementById('resultCaption').textContent = '';
+  }
+
+  function charToVal(ch) {
+    if (!ch) return 0;
+    if (!isNaN(ch)) return parseInt(ch);
+    return ch.charCodeAt(0) - 55;
+  }
+
+  function valToChar(val) {
+    return val <= 9 ? val.toString() : String.fromCharCode(val + 55);
+  }
+
+  function getBoard() {
+    return cells.map(row => row.map(cell => charToVal(cell.value)));
+  }
+
+  function setBoard(board) {
+    for (let r = 0; r < size; r++) {
+      for (let c = 0; c < size; c++) {
+        cells[r][c].value = board[r][c] ? valToChar(board[r][c]) : '';
+        if (board[r][c]) {
+          cells[r][c].classList.add('highlight');
+        }
+      }
+    }
+  }
+
+  function clearGrid() {
+    cells.flat().forEach(cell => {
+      cell.value = '';
+      cell.classList.remove('highlight');
+    });
+    document.getElementById('resultCaption').textContent = '';
+  }
+
+  function isSafe(board, r, c, num, boxR, boxC) {
+    for (let i = 0; i < size; i++) {
+      if (board[r][i] === num || board[i][c] === num) return false;
+    }
+    const startR = Math.floor(r / boxR) * boxR;
+    const startC = Math.floor(c / boxC) * boxC;
+    for (let i = 0; i < boxR; i++) {
+      for (let j = 0; j < boxC; j++) {
+        if (board[startR + i][startC + j] === num) return false;
+      }
+    }
+    return true;
+  }
+
+  function solve(board, boxR, boxC) {
+    for (let r = 0; r < size; r++) {
+      for (let c = 0; c < size; c++) {
+        if (board[r][c] === 0) {
+          for (let num = 1; num <= size; num++) {
+            if (isSafe(board, r, c, num, boxR, boxC)) {
+              board[r][c] = num;
+              if (solve(board, boxR, boxC)) return true;
+              board[r][c] = 0;
+            }
+          }
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  function solveSudoku() {
+    const board = getBoard();
+    const [boxR, boxC] = getBoxSize(size);
+    const caption = document.getElementById('resultCaption');
+
+    if (solve(board, boxR, boxC)) {
+      setBoard(board);
+      caption.textContent = "✅ Solution found! Puzzle solved successfully!";
+      caption.style.color = "green";
+    } else {
+      caption.textContent = "❌ No solution found. Please check your inputs.";
+      caption.style.color = "red";
+    }
+  }
+
+  window.onload = createGrid;
+</script>
+</body>
+</html>
